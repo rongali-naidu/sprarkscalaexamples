@@ -1,8 +1,14 @@
 # Spark Scala Examples
 
 ### Introduction
+This project contains severals example Spark Applications. 
+The following sections provides some key notes i made .
 * [Spark API Doc Link](https://spark.apache.org/docs/2.4.0/api.html)
 * SparkSession.builder() doesnt use new keyword for creating the object. this is due to the "apply method concept"
+
+
+### Steps for Merging into GitHub Public Repository
+* I enabled git for the project in IntelliJ IDEA IDE
 * use this link for [github credentials](https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8)
 * Follow below steps for merging into github repository
 
