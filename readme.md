@@ -3,13 +3,17 @@
 ### Introduction
 * [Spark API Doc Link](https://spark.apache.org/docs/2.4.0/api.html)
 * SparkSession.builder() doesnt use new keyword for creating the object. this is due to the "apply method concept"
-* use this link for [githib credentials](https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8
-
-)
+* use this link for [githib credentials](https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8)
 
 `
-git remote add origin https://github.com/rongali-naidu/sparkscalaexample.git
-git branch -M main
+git remote add origin https://github.com/rongali-naidu/sparkscalaexample.git`
+
+
+`
+git branch -M main 
+`
+
+`
 git push -u origin main`
 
 
