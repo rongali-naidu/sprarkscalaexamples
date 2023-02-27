@@ -55,8 +55,11 @@ necessary lo4j settings
 * In scala, Object classes supports Java static methods, static vaiables
 * 
 #### ReadingJsonFile
-This scala application reads from Json file,applies filter and writes output to a file
+* This scala application reads from Json file,applies filter and writes output to a file
 arguement set  = "data/people_newline_delimited.json"
+* It writes to two different csv files. second write tries to consolidate the output into single file
+* The write uses overrite folder setting for re-running cases
+* 
 
 #### ConvertJsonToParquet
 This application reads Json file and converts to Parquet file
