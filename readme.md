@@ -47,6 +47,7 @@ The following sections provides some key notes i made .
 necessary lo4j settings 
 
 ### Useful sbt commands
+* sbt test
 * sbt compile
 * sbt build
 
@@ -61,6 +62,17 @@ arguement set  = "data/people_newline_delimited.json"
 * The write uses overrite folder setting for re-running cases
 * 
 
+###ReadingScvFile
+* For this example, added two unit test cases. 
+* unit tests are tested in "sbt shell" using `test` command
+* Log output is pasted below 
+```
+23/02/27 21:22:18 INFO scala.examples.ReadingCsvFile$: This is beginning of the spark application
+23/02/27 21:22:24 INFO scala.examples.ReadingCsvFile$: spark.conf=HashMap(spark.sql.warehouse.dir -> file:/home/naidu/workspace/SparkScalaExamples/spark-warehouse, spark.driver.port -> 44417, spark.app.name -> Reading_JSON_File, spark.yarn.app.container.log.dir -> app_logs, spark.driver.extraJavaOptions -> -XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.nio.cs=ALL-UNNAMED --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED --add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED, spark.master -> local[3], spark.app.id -> local-1677561742249, spark.executor.extraJavaOptions -> -XX:+IgnoreUnrecognizedVMOptions --add-opens=java.base/java.lang=ALL-UNNAMED --add-opens=java.base/java.lang.invoke=ALL-UNNAMED --add-opens=java.base/java.lang.reflect=ALL-UNNAMED --add-opens=java.base/java.io=ALL-UNNAMED --add-opens=java.base/java.net=ALL-UNNAMED --add-opens=java.base/java.nio=ALL-UNNAMED --add-opens=java.base/java.util=ALL-UNNAMED --add-opens=java.base/java.util.concurrent=ALL-UNNAMED --add-opens=java.base/java.util.concurrent.atomic=ALL-UNNAMED --add-opens=java.base/sun.nio.ch=ALL-UNNAMED --add-opens=java.base/sun.nio.cs=ALL-UNNAMED --add-opens=java.base/sun.security.action=ALL-UNNAMED --add-opens=java.base/sun.util.calendar=ALL-UNNAMED --add-opens=java.security.jgss/sun.security.krb5=ALL-UNNAMED, spark.driver.host -> 10.0.0.118, spark.app.startTime -> 1677561740033, spark.executor.id -> driver)
+23/02/27 21:22:31 INFO scala.examples.ReadingCsvFile$: Job: Developer Count: 2
+23/02/27 21:22:31 INFO scala.examples.ReadingCsvFile$: Job: Architect Count: 1
+23/02/27 21:22:31 INFO scala.examples.ReadingCsvFile$: [Developer,2]->[Architect,1]
+```
 #### ConvertJsonToParquet
 This application reads Json file and converts to Parquet file
 
