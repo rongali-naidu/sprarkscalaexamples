@@ -48,8 +48,7 @@ necessary lo4j settings
 
 ### Useful sbt commands
 * sbt test
-* sbt compile
-* sbt build
+* sbt package
 
 ### Scala Example details
 * The object classes are extended to Serializable
@@ -60,9 +59,9 @@ necessary lo4j settings
 arguement set  = "data/people_newline_delimited.json"
 * It writes to two different csv files. second write tries to consolidate the output into single file
 * The write uses overrite folder setting for re-running cases
-* 
 
-###ReadingScvFile
+
+#### ReadingScvFile
 * For this example, added two unit test cases. 
 * unit tests are tested in "sbt shell" using `test` command
 * Log output is pasted below 
@@ -73,9 +72,16 @@ arguement set  = "data/people_newline_delimited.json"
 23/02/27 21:22:31 INFO scala.examples.ReadingCsvFile$: Job: Architect Count: 1
 23/02/27 21:22:31 INFO scala.examples.ReadingCsvFile$: [Developer,2]->[Architect,1]
 ```
-#### ConvertJsonToParquet
-This application reads Json file and converts to Parquet file
-
+#### ReadingJsonFileUsingDS
+* This is similar to ReadingJsonFile but done using Dataset API
+* Note that Dataframe is special case of Dataset ie Dataset[Row]
+* we can convert Dataframe to Dataset with the help of case Class and spark.implicits._
+* Advantage of Datasets : Supports Type Safe API 
+* Disadvantage of Datasets : Looses some of the optimizations done for Row format
+* Dataset[Row] format . Row object serialization is managed by Spark using Tungsten binary format (aka UnsafeRow)
+* Dataset[CustomObject]. this custom object serialization is managed by builtin java serializers
+* More on Spark Tungsten ginary format [Link1](https://spoddutur.github.io/spark-notes/deep_dive_into_storage_formats.html)
+  [Link2](https://medium.com/@goyalsaurabh66/project-tungsten-and-catalyst-sql-optimizer-9d3c83806b63)
 
 
 

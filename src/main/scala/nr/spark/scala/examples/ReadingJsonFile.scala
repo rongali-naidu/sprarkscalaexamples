@@ -29,6 +29,7 @@ object ReadingJsonFile extends Serializable {
     sourceDF.show(5)
 
     sourceDF.write.mode("overwrite").format("csv").option("header","true").option("overwrite","true").save("data/persons.csv")
+    //sourceDF.write.mode("overwrite").format("csv").option("header","true").option("overwrite","true").partitionBy("col1","col2").save("data/persons.csv")
     sourceDF.coalesce(1).write.mode("overwrite").format("csv").option("header","true").save("data/persons_single_file.csv")
     logger.info("This is ending of the spark application")
     spark.stop()
