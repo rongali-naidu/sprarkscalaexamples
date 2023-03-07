@@ -1,5 +1,5 @@
 # Spark Scala Examples
-# Table of contents
+## Table of contents
 1. [Introduction](#l3h1)
 2. [Steps for Merging into GitHub Public Repository](#l3h2)
 3. [build.sbt details](#l3h3)
