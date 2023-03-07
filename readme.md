@@ -12,6 +12,7 @@
    1. [ReadingJsonFile](#l4h1)
    2. [ReadingCsvFile](#l4h2)
    3. [ReadingJsonFileUsingDS](#l4h3)
+   4. [UdfExample](#l4h4)
 
 
 ### Introduction  
@@ -160,5 +161,15 @@ arguement set  = "data/people_newline_delimited.json"
 * More on Spark Tungsten ginary format [Link1](https://spoddutur.github.io/spark-notes/deep_dive_into_storage_formats.html)
   [Link2](https://medium.com/@goyalsaurabh66/project-tungsten-and-catalyst-sql-optimizer-9d3c83806b63)
 
+#### UdfExample
+<a id="l4h4"></a>
 
-
+* Create method (deriveStageOfLife)
+* Register method with udf and use it in Column Expression
+  * registering the udf function using signature of deriveStageOfLife
+  * udf function registers udf and returns a refernece of the registered udf
+  * registeration of the udf function will result in serialization of the function
+  * and sending the function to executors
+* Register the method with Catalog and use it in SQL expressions
+  *  Note that registering UDF is not enough to use the UDF in the SQL expression
+  *  we need to register with the Catalog using  spark.udf.register. This will register as SQL Function
