@@ -1,6 +1,21 @@
 # Spark Scala Examples
+# Table of contents
+1. [Introduction](#l3h1)
+2. [Steps for Merging into GitHub Public Repository](#l3h2)
+3. [build.sbt details](#l3h3)
+4. [Setting up JVM (VM properties)](#l3h4)
+5. [How Spark Configuration is set](#l3h5)
+6. [How log4j properties are set](#l3h6)
+7. [Steps for deploying Spark Application to Cluster and Submit it](#l3h7)
+8. [Useful sbt commands](#l3h8)
+9. [Scala Example details](#l3h9)
+   1. [ReadingJsonFile](#l4h1)
+   2. [ReadingCsvFile](#l4h2)
+   3. [ReadingJsonFileUsingDS](#l4h3)
 
-### Introduction
+
+### Introduction  
+<a id="l3h1"></a>
 This project contains severals example Spark Applications. 
 The following sections provides some key notes i made .
 * [Spark API Doc Link](https://spark.apache.org/docs/2.4.0/api.html)
@@ -8,6 +23,7 @@ The following sections provides some key notes i made .
 
 
 ### Steps for Merging into GitHub Public Repository
+<a id="l3h2"></a>
 * I enabled git for the project in IntelliJ IDEA IDE
 * use this link for [github credentials](https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8)
 * Follow below steps for merging into github repository
@@ -20,17 +36,22 @@ The following sections provides some key notes i made .
 
 
 ### build.sbt details
+<a id="l3h3"></a>
 * [spark-core]( https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.13/3.3.1 )
 * Above link shows the entries to be added for spark core dependencies
 * "ThisBuild /" is prefixed to properties for those which are common across the sub-projects
 
+
 ### Setting up JVM (VM properties)
+<a id="l3h4"></a>
 * -Dlog4j.configuration=file:log4j.properties
 * -Dspark.yarn.app.container.log.dir=app_logs
 *  Note that spark.yarn.app.container.log.dir will be set for Yarn cluster but needs to be run for Spark local mode
 * -Dlogfile.name=spark_scala
 
+
 ### How Spark Configuration is set
+<a id="l3h5"></a>
 * Precidence : 4 :  ${SPARK_HOME}/bin/spark-env.sh script , which gets invoked by spark_submit sets up some spark related environment variables
 * Precidence : 3  :  ${SPARK_HOME}/conf/spark-defaults.conf will have default configurations
 * Precidence : 2 : some configuration options are passed to spark-submit using --conf flag and other spark-command options like driver-memory. 
@@ -38,7 +59,9 @@ The following sections provides some key notes i made .
 * Precidence : 1 : some configrations are set with in the application code using SparkConf object.
 * if a property is set at multiple places, the option set at application code's SparkConf object takes highest precedence
 
+
 ### How log4j properties are set
+<a id="l3h6"></a>
 * note that we didnt set any sbt dependencies for log4j since it is included as transient dependency of spark-core
 * log4j.properties file is included in the project root folder and passed as JVM parameter
 * Other option to include log4j.properties is under resources folder
@@ -46,7 +69,9 @@ The following sections provides some key notes i made .
 * log4j.properties file is added under the project root folder.It has
 necessary lo4j settings 
 
+
 ### Steps for deploying Spark Application to Cluster and Submit it
+<a id="l3h7"></a>
 * if there are multiple object classes with main methods, then add 
 `Compile / packageBin / mainClass := Some("nr.spark.scala.examples.ReadingJsonFile")` setting in build.sbt file
 * build using `package` in sbt console
@@ -89,15 +114,21 @@ spark-submit
 yarn logs -applicationId application_<> -log_files Sample-app-driver.log
 ```
 
+
 ### Useful sbt commands
+<a id="l3h8"></a>
 * sbt test
 * sbt package
 
+
 ### Scala Example details
+<a id="l3h9"></a>
 * The object classes are extended to Serializable
 * In scala, Object classes supports Java static methods, static vaiables
-* 
+
+
 #### ReadingJsonFile
+<a id="l4h1"></a>
 * This scala application reads from Json file,applies filter and writes output to a file
 arguement set  = "data/people_newline_delimited.json"
 * It writes to two different csv files. second write tries to consolidate the output into single file
@@ -105,6 +136,7 @@ arguement set  = "data/people_newline_delimited.json"
 
 
 #### ReadingCsvFile
+<a id="l4h2"></a>
 * For this example, added two unit test cases. 
 * unit tests are tested in "sbt shell" using `test` command
 * Log output is pasted below 
@@ -115,7 +147,9 @@ arguement set  = "data/people_newline_delimited.json"
 23/02/27 21:22:31 INFO scala.examples.ReadingCsvFile$: Job: Architect Count: 1
 23/02/27 21:22:31 INFO scala.examples.ReadingCsvFile$: [Developer,2]->[Architect,1]
 ```
+
 #### ReadingJsonFileUsingDS
+<a id="l4h3"></a>
 * This is similar to ReadingJsonFile but done using Dataset API
 * Note that Dataframe is special case of Dataset ie Dataset[Row]
 * we can convert Dataframe to Dataset with the help of case Class and spark.implicits._
