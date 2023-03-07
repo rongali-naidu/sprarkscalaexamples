@@ -46,6 +46,49 @@ The following sections provides some key notes i made .
 * log4j.properties file is added under the project root folder.It has
 necessary lo4j settings 
 
+### Steps for deploying Spark Application to Cluster and Submit it
+* if there are multiple object classes with main methods, then add 
+`Compile / packageBin / mainClass := Some("nr.spark.scala.examples.ReadingJsonFile")` setting in build.sbt file
+* build using `package` in sbt console
+* it will generate the application jar under "target/scala-<version> folder" . In this case, it created "sparkscalaexamples_2.13-1.0.0.jar"
+* All the files and folder under resources folder(whch is under src folder) are copied under root folder of Jar file
+* Since it didnt include the "data folder", we need to copy the people_newline_delimited.json manually to the cluster
+* We also need to copy any other files which are referred in spark_submit , for ex, log4j.properties
+* copy all the required files to the spark cluster node . 
+  * one way is using scp. 
+```
+scp -P 2222 * cluster-user@cluster_name:/<directory_path>
+```
+  * scp needs destination port if its different from the default scp port
+* login to cluster node . one way is using ssh.
+* note that spark expects the data file either in HDFS or in cloud storage like SG or GFS
+* Since we have the fie available locally, we need to upload it to HDFS stoage of the cluster
+  * create hdfs folder 
+```
+hdfs dfs -mkdir /user/root/data
+```
+  * In this example, we will run the application as "root" user
+  * copy the data from the local cluster storage to hdfs 
+```
+hdfs dfs -copyFromLocal <file_name> /user/root/data/
+```
+* submit the spark application
+```
+spark-submit 
+   --verbose 
+   --class nrspark.scala.examples.ReadJsonFile
+   --files log4j.properties
+   --conf 'spark.driver.extraJavaOptions=-Dlog4j.configuration=log4j.properties -Dlogfile.name=Sample-app-driver'
+   --conf 'spark.executor.extraJavaOptions=-Dlog4j.configuration=log4j.properties -Dlogfile.name=Sample-app-executor'
+   --master yarn
+   sparkscalaexamples_2.13-1.0.0.jar /user/root/data/<file_name>
+```
+* `--files` option copies the specified files onto the working directory of the driver
+* we can display the contents of the log files onto the console using
+```
+yarn logs -applicationId application_<> -log_files Sample-app-driver.log
+```
+
 ### Useful sbt commands
 * sbt test
 * sbt package
@@ -61,7 +104,7 @@ arguement set  = "data/people_newline_delimited.json"
 * The write uses overrite folder setting for re-running cases
 
 
-#### ReadingScvFile
+#### ReadingCsvFile
 * For this example, added two unit test cases. 
 * unit tests are tested in "sbt shell" using `test` command
 * Log output is pasted below 

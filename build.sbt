@@ -3,7 +3,8 @@ import sbt.Keys.libraryDependencies
 ThisBuild / scalaVersion := "2.13.10"
 ThisBuild / organization := "nr.spark.scala.examples"
 ThisBuild / version      := "1.0.0"
-
+// set the main class for packaging the main jar
+Compile / packageBin / mainClass := Some("nr.spark.scala.examples.ReadingJsonFile")
 
 //https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.13/3.3.1
 //Above url shows groupId,ArtifactId,revision to use
@@ -28,6 +29,7 @@ lazy val root = (project in file("."))
     name := "SparkScalaExamples",
     libraryDependencies ++= devDependencies ++ testDependencies,
     autoScalaLibrary  := false ,
+  //  mainClass := Some("nr.spark.scala.examples.ReadingJsonFile")
     //settings will add scala library to depdencies
     //we dont need separate scala library downloaded since spark core contains scala library
 
