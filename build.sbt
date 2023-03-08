@@ -14,7 +14,8 @@ val sparkVersion = "3.3.1"
 
 val devDependencies = Seq(
   "org.apache.spark" %% "spark-core" % sparkVersion,
-  "org.apache.spark" %% "spark-sql" % sparkVersion
+  "org.apache.spark" %% "spark-sql" % sparkVersion,
+  "org.apache.spark" %% "spark-hive" % sparkVersion,
 )
 
 //https://mvnrepository.com/artifact/org.scalatest/scalatest_3/3.2.15
