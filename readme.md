@@ -7,7 +7,7 @@
 5. [How Spark Configuration is set](#l3h5)
 6. [How log4j properties are set](#l3h6)
 7. [Steps for deploying Spark Application to Cluster and Submit it](#l3h7)
-8. [Useful sbt commands](#l3h8)
+8. [Unit Testing](#l3h8)
 9. [Scala Example details](#l3h9)
    1. [ReadingJsonFile](#l4h1)
    2. [ReadingCsvFile](#l4h2)
@@ -18,17 +18,24 @@
 
 ### Introduction  
 <a id="l3h1"></a>
-This project contains severals example Spark Applications. 
-The following sections provides some key notes i made .
-* [Spark API Doc Link](https://spark.apache.org/docs/2.4.0/api.html)
-* SparkSession.builder() doesnt use new keyword for creating the object. this is due to the "apply method concept"
-
+* This project contains multiple sample Spark Applications covering various Spark concepts and APIs. 
+* The following sections provides some key notes i made .
+* [Spark API Doc Link](https://spark.apache.org/docs/2.4.0/api.html) is the refernce for the Spark APIs
+* This [Scala Tutorials](https://youtu.be/DrSHCE7b9gQ) helped me understand key scala concepts
+  * SparkSession.builder() doesnt use new keyword for creating the object. this is due to the "apply method concept"
+* Each sample Spark Application has separate subsection in  [Scala Example details](#l3h9)
 
 ### Steps for Merging into GitHub Public Repository
 <a id="l3h2"></a>
-* I enabled git for the project in IntelliJ IDEA IDE
-* use this link for [github credentials](https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8)
-* Follow below steps for merging into github repository
+
+* **Alternative 1**: Enabled Github integration in IntelliJ  IDE.
+  * Firstime, it asked me to authenticate to github
+  * Used the commit and push options of IntelliJ's Git menu
+  
+* **Alternative 2**: Pushing the contents manually to Github
+  * I enabled git for the project in IntelliJ IDEA IDE
+  * use this link for [github credentials](https://ginnyfahs.medium.com/github-error-authentication-failed-from-command-line-3a545bfd0ca8)
+  * Follow below steps for merging into github repository
 
 ```
    git remote add origin https://github.com/rongali-naidu/sparkscalaexamples.git  
@@ -39,10 +46,13 @@ The following sections provides some key notes i made .
 
 ### build.sbt details
 <a id="l3h3"></a>
-* [spark-core]( https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.13/3.3.1 )
-* Above link shows the entries to be added for spark core dependencies
+* [spark-core]( https://mvnrepository.com/artifact/org.apache.spark/spark-core_2.13/3.3.1 ) shows the entries to be added for spark core dependencies
 * "ThisBuild /" is prefixed to properties for those which are common across the sub-projects
-
+* if there are multiple object classes with main methods, then add
+  `Compile / packageBin / mainClass := Some("nr.spark.scala.examples.ReadingJsonFile")` setting in build.sbt file
+* useful sbt commands
+  * sbt test
+  * sbt package
 
 ### Setting up JVM (VM properties)
 <a id="l3h4"></a>
@@ -117,10 +127,16 @@ yarn logs -applicationId application_<> -log_files Sample-app-driver.log
 ```
 
 
-### Useful sbt commands
+### Unit Testing
 <a id="l3h8"></a>
-* sbt test
-* sbt package
+* Unit tests are added under src/test/scala 
+* Created Scala Class "ReadingCsvFileTest" which extends AnyFunSuite and uses BeforeAndAfterAll traits (Inteface)
+* Each unit test case has separate `unit` method and uses `assert` functions
+* Here, i used same files for creating the data frames. 
+* In some case we may not have access to the these files and we need to use [Mock objects](https://www.scalatest.org/user_guide/testing_with_mock_objects). 
+* //TODO : Re-write these unit tests using mocking objects
+* //TODO : Add Formatter and Unit test coverage checking
+* unit tests are tested in "sbt shell" using `test` command
 
 
 ### Scala Example details
